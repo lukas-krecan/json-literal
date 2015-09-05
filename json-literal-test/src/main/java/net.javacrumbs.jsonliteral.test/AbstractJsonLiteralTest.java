@@ -26,7 +26,8 @@ public abstract class AbstractJsonLiteralTest {
                         arr -> array(1, "a", 3),
                         arr2 -> new String[]{"a", "b", "c"},
                         bd -> new BigDecimal("1.23"),
-                        bi -> new BigInteger("1")
+                        bi -> new BigInteger("1"),
+                        param -> param
                 )
         ).isEqualTo("{\n" +
                 "   \"one\":true,\n" +
@@ -49,7 +50,8 @@ public abstract class AbstractJsonLiteralTest {
                 "      \"c\"\n" +
                 "   ],\n" +
                 "   \"bd\":1.23,\n" +
-                "   \"bi\":1\n" +
+                "   \"bi\":1,\n" +
+                "   \"param\":\"param\"\n" +
                 "}\n");
     }
 
