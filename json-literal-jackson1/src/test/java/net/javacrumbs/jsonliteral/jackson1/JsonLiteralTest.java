@@ -1,7 +1,6 @@
 package net.javacrumbs.jsonliteral.jackson1;
 
-import net.javacrumbs.jacksonliteral.core.lambda.NamedValue;
-import net.javacrumbs.jsonliteral.jackson1.JsonLiteral;
+import net.javacrumbs.jsonliteral.core.lambda.NamedValue;
 import net.javacrumbs.jsonliteral.test.AbstractJsonLiteralTest;
 
 

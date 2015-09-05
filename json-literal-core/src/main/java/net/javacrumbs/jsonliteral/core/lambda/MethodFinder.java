@@ -1,4 +1,4 @@
-package net.javacrumbs.jacksonliteral.core.lambda;
+package net.javacrumbs.jsonliteral.core.lambda;
 
 import java.io.Serializable;
 import java.lang.invoke.SerializedLambda;

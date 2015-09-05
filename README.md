@@ -18,19 +18,19 @@ And enjoy
     ...
 
     JsonNode node =
-            obj(
-                    one -> true,
-                    two -> obj(
-                            three -> false
-                    ),
-                    string -> "value",
-                    integer -> 1,
-                    nothing -> null,
-                    dbl -> 1.1,
-                    flt -> 1.0,
-                    arr -> asList(1, "a", 3),
-                    arr2 -> new String[]{"a", "b", "c"}
-            );
+                    obj(
+                            one -> true,
+                            two -> obj(
+                                    three -> false
+                            ),
+                            string -> "value",
+                            integer -> 1,
+                            $null -> null,
+                            dbl -> 1.1,
+                            flt -> 1.0,
+                            arr -> asList(1, "a", 3),
+                            arr2 -> new String[]{"a", "b", "c"}
+                    );
 
     System.out.println(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(node));
 
@@ -43,16 +43,15 @@ Prints
       },
       "string" : "value",
       "integer" : 1,
-      "nothing" : null,
+      "null" : null,
       "dbl" : 1.1,
       "flt" : 1.0,
       "arr" : [ 1, "a", 3 ],
       "arr2" : [ "a", "b", "c" ]
     }
 
-
-TODO:
-
-- Support for key renaming so we can use key that are not Java identifiers
+Please note that you can use only valid java identifier for key value. So you can not use `null`, `for`
+or any other keyword. But if you prepend the name by $, the library will automatically strip it and use the
+rest of the string. We will need more sophisticated mechanism in the future.
 
 

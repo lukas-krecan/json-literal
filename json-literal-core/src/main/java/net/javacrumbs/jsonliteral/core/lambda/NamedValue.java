@@ -1,4 +1,4 @@
-package net.javacrumbs.jacksonliteral.core.lambda;
+package net.javacrumbs.jsonliteral.core.lambda;
 
 import java.util.Objects;
 import java.util.function.Function;

@@ -1,5 +1,5 @@
 /**
- * Copyright 2009-2014 the original author or authors.
+ * Copyright 2009-2015 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,55 +15,36 @@
  */
 package net.javacrumbs.jsonliteral.gson;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonNull;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonPrimitive;
-import net.javacrumbs.jacksonliteral.core.lambda.NamedValue;
-
-import static java.util.Arrays.asList;
+import net.javacrumbs.jsonliteral.core.NameTranslator;
+import net.javacrumbs.jsonliteral.core.lambda.NamedValue;
 
 public class JsonLiteral {
-
+    /**
+     * Creates JsonObject. Use like this
+     * <code>
+     *     <pre>
+     *     json = obj(
+     *           one -> true,
+     *           two -> obj(
+     *                   three -> false
+     *            ),
+     *           string -> "value",
+     *           integer -> 1,
+     *           $null -> null,
+     *           dbl -> 1.1,
+     *           flt -> 1.0,
+     *           arr -> asList(1, "a", 3),
+     *           arr2 -> new String[]{"a", "b", "c"}
+     *    );
+     *   </pre>
+     * </code>
+     * @param keyValuePairs
+     * @return
+     */
     @SafeVarargs
     public static JsonObject obj(NamedValue<Object>... keyValuePairs) {
-        JsonObject node = new JsonObject();
-        asList(keyValuePairs)
-                .stream()
-                .forEach(kvp -> put(node, kvp));
-        return node;
+        return new JsonLiteralBuilder(NameTranslator.DEFAULT_TRANSLATOR).obj(keyValuePairs);
     }
 
-    private static void put(JsonObject node, NamedValue<Object> kvp) {
-        node.add(kvp.name(), convertValueToNode(kvp.value()));
-    }
-
-    private static JsonElement convertValueToNode(Object value) {
-        if (value instanceof Boolean) {
-            return new JsonPrimitive((Boolean) value);
-        } else if (value instanceof JsonElement) {
-            return (JsonElement) value;
-        } else if (value instanceof String) {
-            return new JsonPrimitive((String) value);
-        } else if (value instanceof Number) {
-            return new JsonPrimitive((Number) value);
-        } else if (value instanceof Iterable) {
-            return serializeIterable((Iterable<?>) value);
-        } else if (value instanceof Object[]) {
-            return serializeIterable(asList((Object[]) value));
-        } else if (value == null) {
-            return JsonNull.INSTANCE;
-        } else {
-            throw new IllegalArgumentException("Can not serialize type " + value.getClass());
-        }
-    }
-
-    private static JsonElement serializeIterable(Iterable<?> value) {
-        JsonArray arrayNode = new JsonArray();
-        for (Object a : value) {
-            arrayNode.add(convertValueToNode(a));
-        }
-        return arrayNode;
-    }
 }

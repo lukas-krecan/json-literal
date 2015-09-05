@@ -1,6 +1,6 @@
 package net.javacrumbs.jsonliteral.gson;
 
-import net.javacrumbs.jacksonliteral.core.lambda.NamedValue;
+import net.javacrumbs.jsonliteral.core.lambda.NamedValue;
 import net.javacrumbs.jsonliteral.test.AbstractJsonLiteralTest;
 
 
