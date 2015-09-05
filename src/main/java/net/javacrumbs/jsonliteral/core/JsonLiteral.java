@@ -17,15 +17,26 @@ package net.javacrumbs.jsonliteral.core;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.BooleanNode;
+import com.fasterxml.jackson.databind.node.DoubleNode;
+import com.fasterxml.jackson.databind.node.IntNode;
+import com.fasterxml.jackson.databind.node.JsonNodeFactory;
+import com.fasterxml.jackson.databind.node.LongNode;
+import com.fasterxml.jackson.databind.node.NullNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.fasterxml.jackson.databind.node.TextNode;
 import net.javacrumbs.jsonliteral.core.lambda.NamedValue;
 
 import static java.util.Arrays.asList;
 
 public class JsonLiteral {
+
+    private static JsonNodeFactory nodeFactory = new ObjectMapper().getNodeFactory();
+
     @SafeVarargs
     public static JsonNode obj(NamedValue<Object>... keyValuePairs) {
-        ObjectNode node = new ObjectNode(new ObjectMapper().getNodeFactory());
+        ObjectNode node = new ObjectNode(nodeFactory);
         asList(keyValuePairs)
                 .stream()
                 .forEach(kvp -> put(node, kvp));
@@ -33,21 +44,30 @@ public class JsonLiteral {
     }
 
     private static void put(ObjectNode node, NamedValue<Object> kvp) {
-        Object value = kvp.value();
+        node.put(kvp.name(), convertValueToNode(kvp.value()));
+    }
+
+    private static JsonNode convertValueToNode(Object value) {
         if (value instanceof Boolean) {
-            node.put(kvp.name(), (Boolean) value);
+            return BooleanNode.valueOf((Boolean) value);
         } else if (value instanceof JsonNode) {
-            node.put(kvp.name(), (JsonNode) value);
+            return (JsonNode) value;
         } else if (value instanceof String) {
-            node.put(kvp.name(), (String) value);
+            return TextNode.valueOf((String) value);
         } else if (value instanceof Integer) {
-            node.put(kvp.name(), (Integer) value);
-        }else if (value instanceof Long) {
-            node.put(kvp.name(), (Long) value);
+            return IntNode.valueOf((Integer) value);
+        } else if (value instanceof Long) {
+            return LongNode.valueOf((Long) value);
         } else if (value instanceof Double) {
-            node.put(kvp.name(), (Double) value);
+            return DoubleNode.valueOf((Double) value);
+        } else if (value instanceof Iterable) {
+            ArrayNode arrayNode = new ArrayNode(nodeFactory);
+            for (Object a : (Iterable<?>) value) {
+                arrayNode.add(convertValueToNode(a));
+            }
+            return arrayNode;
         } else if (value == null) {
-            node.putNull(kvp.name());
+           return NullNode.getInstance();
         } else {
             throw new IllegalArgumentException("Can not serialize type " + value.getClass());
         }
