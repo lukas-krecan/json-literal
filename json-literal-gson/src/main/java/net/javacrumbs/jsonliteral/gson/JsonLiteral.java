@@ -15,11 +15,14 @@
  */
 package net.javacrumbs.jsonliteral.gson;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import net.javacrumbs.jsonliteral.core.NameTranslator;
 import net.javacrumbs.jsonliteral.core.lambda.NamedValue;
 
 public class JsonLiteral {
+    private static final JsonLiteralBuilder defaultBuilder = new JsonLiteralBuilder(NameTranslator.DEFAULT_TRANSLATOR);
+
     /**
      * Creates JsonObject. Use like this
      * <code>
@@ -44,7 +47,10 @@ public class JsonLiteral {
      */
     @SafeVarargs
     public static JsonObject obj(NamedValue<Object>... keyValuePairs) {
-        return new JsonLiteralBuilder(NameTranslator.DEFAULT_TRANSLATOR).obj(keyValuePairs);
+        return defaultBuilder.obj(keyValuePairs);
     }
 
+    public static JsonArray array(Object... values) {
+        return defaultBuilder.array(values);
+    }
 }

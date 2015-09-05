@@ -54,6 +54,11 @@ public final class JsonLiteralBuilder extends AbstractJsonLiteralBuilder<ObjectN
         return new ObjectNode(nodeFactory);
     }
 
+    public final ArrayNode array(Object[] values) {
+        return asList(values).stream().map(this::convertValueToNode)
+                .collect(() -> new ArrayNode(nodeFactory), ArrayNode::add, ArrayNode::addAll);
+    }
+
     private JsonNode convertValueToNode(Object value) {
         if (value instanceof Boolean) {
             return BooleanNode.valueOf((Boolean) value);

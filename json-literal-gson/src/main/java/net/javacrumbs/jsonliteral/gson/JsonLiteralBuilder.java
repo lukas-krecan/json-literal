@@ -40,6 +40,11 @@ public final class JsonLiteralBuilder extends AbstractJsonLiteralBuilder<JsonObj
         return new JsonObject();
     }
 
+    public final JsonArray array(Object[] values) {
+        return asList(values).stream().map(this::convertValueToNode)
+                .collect(JsonArray::new, JsonArray::add, JsonArray::addAll);
+    }
+
     private JsonElement convertValueToNode(Object value) {
         if (value instanceof Boolean) {
             return new JsonPrimitive((Boolean) value);

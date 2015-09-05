@@ -18,13 +18,17 @@ package net.javacrumbs.jsonliteral.jackson1;
 import net.javacrumbs.jsonliteral.core.NameTranslator;
 import net.javacrumbs.jsonliteral.core.lambda.NamedValue;
 import org.codehaus.jackson.JsonNode;
+import org.codehaus.jackson.node.ArrayNode;
 import org.codehaus.jackson.node.JsonNodeFactory;
+import org.codehaus.jackson.node.ObjectNode;
 
 public class JsonLiteral {
+    private static final JsonLiteralBuilder defaultBuilder = new JsonLiteralBuilder(NameTranslator.DEFAULT_TRANSLATOR, JsonNodeFactory.instance);
+
     /**
      * Creates JsonObject. Use like this
      * <code>
-     *     <pre>
+     * <pre>
      *     json = obj(
      *           one -> true,
      *           two -> obj(
@@ -40,12 +44,16 @@ public class JsonLiteral {
      *    );
      *   </pre>
      * </code>
+     *
      * @param keyValuePairs
      * @return
      */
     @SafeVarargs
-    public static JsonNode obj(NamedValue<Object>... keyValuePairs) {
-        return new JsonLiteralBuilder(NameTranslator.DEFAULT_TRANSLATOR, JsonNodeFactory.instance).obj(keyValuePairs);
+    public static ObjectNode obj(NamedValue<Object>... keyValuePairs) {
+        return defaultBuilder.obj(keyValuePairs);
     }
 
+    public static ArrayNode array(Object... values) {
+        return defaultBuilder.array(values);
+    }
 }

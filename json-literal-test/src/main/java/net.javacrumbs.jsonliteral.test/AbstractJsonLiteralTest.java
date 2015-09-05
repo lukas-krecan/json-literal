@@ -54,7 +54,7 @@ public abstract class AbstractJsonLiteralTest {
     }
 
     @Test
-    public void shouldCreateArrayOfNodes() {
+    public void shouldCreateArrayOfNodesInANode() {
         JsonFluentAssert.assertThatJson(
                 obj(
                         array -> asList(
@@ -64,6 +64,17 @@ public abstract class AbstractJsonLiteralTest {
                 )
         ).isEqualTo("{\"array\": [{\"a\":1}, {\"a\":2}]}");
     }
+
+    @Test
+    public void shouldCreateArrayOfNodes() {
+        JsonFluentAssert.assertThatJson(array(
+                        obj(a -> 1),
+                        obj(a -> 2)
+                )
+        ).isEqualTo("[{\"a\":1}, {\"a\":2}]");
+    }
+
+    protected abstract Object array(Object... values);
 
     protected abstract Object obj(NamedValue<Object>... keyValuePairs);
 }
