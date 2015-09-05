@@ -13,9 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.javacrumbs.jsonliteral.core.internal;
-
-import net.javacrumbs.jsonliteral.core.KeyValue;
+package net.javacrumbs.jsonliteral.core;
 
 import java.lang.invoke.SerializedLambda;
 import java.lang.reflect.Method;

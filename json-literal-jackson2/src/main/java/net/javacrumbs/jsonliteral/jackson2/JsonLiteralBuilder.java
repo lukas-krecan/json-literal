@@ -29,7 +29,7 @@ import com.fasterxml.jackson.databind.node.NullNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.databind.node.TextNode;
 import net.javacrumbs.jsonliteral.core.NameTranslator;
-import net.javacrumbs.jsonliteral.core.internal.AbstractJsonLiteralBuilder;
+import net.javacrumbs.jsonliteral.core.AbstractJsonLiteralBuilder;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;

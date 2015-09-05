@@ -16,7 +16,7 @@
 package net.javacrumbs.jsonliteral.jackson1;
 
 import net.javacrumbs.jsonliteral.core.NameTranslator;
-import net.javacrumbs.jsonliteral.core.internal.AbstractJsonLiteralBuilder;
+import net.javacrumbs.jsonliteral.core.AbstractJsonLiteralBuilder;
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.node.ArrayNode;
 import org.codehaus.jackson.node.BigIntegerNode;

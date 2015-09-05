@@ -21,7 +21,7 @@ import com.google.gson.JsonNull;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import net.javacrumbs.jsonliteral.core.NameTranslator;
-import net.javacrumbs.jsonliteral.core.internal.AbstractJsonLiteralBuilder;
+import net.javacrumbs.jsonliteral.core.AbstractJsonLiteralBuilder;
 
 import static java.util.Arrays.asList;
 
