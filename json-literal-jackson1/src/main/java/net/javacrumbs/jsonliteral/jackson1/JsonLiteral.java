@@ -15,9 +15,8 @@
  */
 package net.javacrumbs.jsonliteral.jackson1;
 
+import net.javacrumbs.jsonliteral.core.KeyValue;
 import net.javacrumbs.jsonliteral.core.NameTranslator;
-import net.javacrumbs.jsonliteral.core.lambda.NamedValue;
-import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.node.ArrayNode;
 import org.codehaus.jackson.node.JsonNodeFactory;
 import org.codehaus.jackson.node.ObjectNode;
@@ -48,8 +47,7 @@ public class JsonLiteral {
      * @param keyValuePairs
      * @return
      */
-    @SafeVarargs
-    public static ObjectNode obj(NamedValue<Object>... keyValuePairs) {
+    public static ObjectNode obj(KeyValue... keyValuePairs) {
         return defaultBuilder.obj(keyValuePairs);
     }
 

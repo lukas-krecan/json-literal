@@ -1,12 +1,11 @@
 package net.javacrumbs.jsonliteral.jackson2;
 
-import net.javacrumbs.jsonliteral.core.lambda.NamedValue;
+import net.javacrumbs.jsonliteral.core.KeyValue;
 import net.javacrumbs.jsonliteral.test.AbstractJsonLiteralTest;
 
 public class JsonLiteralTest extends AbstractJsonLiteralTest {
     @Override
-    @SafeVarargs
-    protected final Object obj(NamedValue<Object>... keyValuePairs) {
+    protected final Object obj(KeyValue... keyValuePairs) {
         return JsonLiteral.obj(keyValuePairs);
     }
 

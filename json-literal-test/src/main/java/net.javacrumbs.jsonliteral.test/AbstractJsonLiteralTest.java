@@ -1,6 +1,6 @@
 package net.javacrumbs.jsonliteral.test;
 
-import net.javacrumbs.jsonliteral.core.lambda.NamedValue;
+import net.javacrumbs.jsonliteral.core.KeyValue;
 import net.javacrumbs.jsonunit.fluent.JsonFluentAssert;
 import org.junit.Test;
 
@@ -76,5 +76,5 @@ public abstract class AbstractJsonLiteralTest {
 
     protected abstract Object array(Object... values);
 
-    protected abstract Object obj(NamedValue<Object>... keyValuePairs);
+    protected abstract Object obj(KeyValue... keyValuePairs);
 }

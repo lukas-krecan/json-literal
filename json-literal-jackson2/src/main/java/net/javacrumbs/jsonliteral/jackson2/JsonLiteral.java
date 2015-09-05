@@ -18,8 +18,8 @@ package net.javacrumbs.jsonliteral.jackson2;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import net.javacrumbs.jsonliteral.core.KeyValue;
 import net.javacrumbs.jsonliteral.core.NameTranslator;
-import net.javacrumbs.jsonliteral.core.lambda.NamedValue;
 
 public class JsonLiteral {
     private static final JsonLiteralBuilder defaultBuilder = new JsonLiteralBuilder(NameTranslator.DEFAULT_TRANSLATOR, JsonNodeFactory.instance);
@@ -46,8 +46,7 @@ public class JsonLiteral {
      * @param keyValuePairs
      * @return
      */
-    @SafeVarargs
-    public static ObjectNode obj(NamedValue<Object>... keyValuePairs) {
+    public static ObjectNode obj(KeyValue... keyValuePairs) {
         return defaultBuilder.obj(keyValuePairs);
     }
 

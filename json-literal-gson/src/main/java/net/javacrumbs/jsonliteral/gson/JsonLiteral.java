@@ -17,8 +17,8 @@ package net.javacrumbs.jsonliteral.gson;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import net.javacrumbs.jsonliteral.core.KeyValue;
 import net.javacrumbs.jsonliteral.core.NameTranslator;
-import net.javacrumbs.jsonliteral.core.lambda.NamedValue;
 
 public class JsonLiteral {
     private static final JsonLiteralBuilder defaultBuilder = new JsonLiteralBuilder(NameTranslator.DEFAULT_TRANSLATOR);
@@ -45,8 +45,7 @@ public class JsonLiteral {
      * @param keyValuePairs
      * @return
      */
-    @SafeVarargs
-    public static JsonObject obj(NamedValue<Object>... keyValuePairs) {
+    public static JsonObject obj(KeyValue... keyValuePairs) {
         return defaultBuilder.obj(keyValuePairs);
     }
 

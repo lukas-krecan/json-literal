@@ -15,8 +15,8 @@
  */
 package net.javacrumbs.jsonliteral.core.internal;
 
+import net.javacrumbs.jsonliteral.core.KeyValue;
 import net.javacrumbs.jsonliteral.core.NameTranslator;
-import net.javacrumbs.jsonliteral.core.lambda.NamedValue;
 
 import static java.util.Arrays.asList;
 
@@ -27,17 +27,19 @@ public abstract class AbstractJsonLiteralBuilder<T> {
         this.nameTranslator = nameTranslator;
     }
 
-    @SafeVarargs
-    public final T obj(NamedValue<Object>... keyValuePairs) {
+    public final T obj(KeyValue... keyValuePairs) {
         T node = createNode();
         asList(keyValuePairs)
                 .stream()
-                .forEach(kvp -> put(node, translateName(kvp), kvp.value()));
+                .forEach(kvp -> {
+                    String name = NameExtractor.extractName(kvp);
+                    put(node, translateName(name), kvp.apply(name));
+                });
         return node;
     }
 
-    private String translateName(NamedValue<Object> kvp) {
-        return nameTranslator.translate(kvp.name());
+    private String translateName(String name) {
+        return nameTranslator.translate(name);
     }
 
     protected abstract void put(T node, String name, Object value);
