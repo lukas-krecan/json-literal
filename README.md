@@ -29,9 +29,9 @@ And enjoy
                             dbl -> 1.1,
                             flt -> 1.0,
                             arr -> asList(1, "a", 3),
-                            arr2 -> new String[]{"a", "b", "c"}
+                            arr2 -> array("a", "b", "c") // or you can use array factory method
                     );
-
+                    
     System.out.println(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(node));
 
 Prints

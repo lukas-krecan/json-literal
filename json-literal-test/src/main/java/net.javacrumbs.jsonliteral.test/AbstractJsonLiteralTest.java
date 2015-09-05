@@ -23,7 +23,7 @@ public abstract class AbstractJsonLiteralTest {
                         $null -> null,
                         dbl -> 1.1,
                         flt -> 1.0f,
-                        arr -> asList(1, "a", 3),
+                        arr -> array(1, "a", 3),
                         arr2 -> new String[]{"a", "b", "c"},
                         bd -> new BigDecimal("1.23"),
                         bi -> new BigInteger("1")
