@@ -19,7 +19,7 @@ public class JsonLiteralTest {
                         string -> "value",
                         integer -> 1,
                         nothing -> null,
-                        dbl -> 1.1,
+                        dbl -> 1.1f,
                         arr -> asList(1, "a", 3)
                 )
         ).isEqualTo("{\"one\": true, \"two\": {\"three\":false}, \"string\":\"value\", \"integer\":1, \"nothing\": null, \"dbl\": 1.1, " +

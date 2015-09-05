@@ -20,6 +20,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.BooleanNode;
 import com.fasterxml.jackson.databind.node.DoubleNode;
+import com.fasterxml.jackson.databind.node.FloatNode;
 import com.fasterxml.jackson.databind.node.IntNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.LongNode;
@@ -60,6 +61,8 @@ public class JsonLiteral {
             return LongNode.valueOf((Long) value);
         } else if (value instanceof Double) {
             return DoubleNode.valueOf((Double) value);
+        } else if (value instanceof Float) {
+            return FloatNode.valueOf((Float) value);
         } else if (value instanceof Iterable) {
             ArrayNode arrayNode = new ArrayNode(nodeFactory);
             for (Object a : (Iterable<?>) value) {
