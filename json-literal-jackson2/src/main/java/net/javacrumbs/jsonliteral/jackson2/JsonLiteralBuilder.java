@@ -28,13 +28,14 @@ import com.fasterxml.jackson.databind.node.LongNode;
 import com.fasterxml.jackson.databind.node.NullNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.databind.node.TextNode;
-import net.javacrumbs.jsonliteral.core.NameTranslator;
 import net.javacrumbs.jsonliteral.core.AbstractJsonLiteralBuilder;
+import net.javacrumbs.jsonliteral.core.NameTranslator;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.stream.Stream;
 
-import static java.util.Arrays.asList;
+import static java.util.Arrays.stream;
 
 public final class JsonLiteralBuilder extends AbstractJsonLiteralBuilder<ObjectNode> {
     private final JsonNodeFactory nodeFactory;
@@ -54,8 +55,13 @@ public final class JsonLiteralBuilder extends AbstractJsonLiteralBuilder<ObjectN
         return new ObjectNode(nodeFactory);
     }
 
-    public final ArrayNode array(Object[] values) {
-        return asList(values).stream().map(this::convertValueToNode)
+    public final ArrayNode array(Object... values) {
+        return arrayFromStream(stream(values));
+    }
+
+    private ArrayNode arrayFromStream(Stream<?> values) {
+        return values
+                .map(this::convertValueToNode)
                 .collect(() -> new ArrayNode(nodeFactory), ArrayNode::add, ArrayNode::addAll);
     }
 
@@ -79,21 +85,13 @@ public final class JsonLiteralBuilder extends AbstractJsonLiteralBuilder<ObjectN
         } else if (value instanceof BigInteger) {
             return BigIntegerNode.valueOf((BigInteger) value);
         } else if (value instanceof Iterable) {
-            return serializeIterable((Iterable<?>) value);
+            return arrayFromStream(toStream((Iterable<?>) value));
         } else if (value instanceof Object[]) {
-            return serializeIterable(asList((Object[]) value));
+            return arrayFromStream(stream((Object[]) value));
         } else if (value == null) {
             return NullNode.getInstance();
         } else {
             throw new IllegalArgumentException("Can not serialize type " + value.getClass());
         }
-    }
-
-    private JsonNode serializeIterable(Iterable<?> value) {
-        ArrayNode arrayNode = new ArrayNode(nodeFactory);
-        for (Object a : value) {
-            arrayNode.add(convertValueToNode(a));
-        }
-        return arrayNode;
     }
 }

@@ -20,10 +20,12 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonNull;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
-import net.javacrumbs.jsonliteral.core.NameTranslator;
 import net.javacrumbs.jsonliteral.core.AbstractJsonLiteralBuilder;
+import net.javacrumbs.jsonliteral.core.NameTranslator;
 
-import static java.util.Arrays.asList;
+import java.util.stream.Stream;
+
+import static java.util.Arrays.stream;
 
 public final class JsonLiteralBuilder extends AbstractJsonLiteralBuilder<JsonObject> {
     public JsonLiteralBuilder(NameTranslator nameTranslator) {
@@ -41,7 +43,11 @@ public final class JsonLiteralBuilder extends AbstractJsonLiteralBuilder<JsonObj
     }
 
     public final JsonArray array(Object[] values) {
-        return asList(values).stream().map(this::convertValueToNode)
+        return arrayFromStream(stream(values));
+    }
+
+    private JsonArray arrayFromStream(Stream<?> values) {
+        return values.map(this::convertValueToNode)
                 .collect(JsonArray::new, JsonArray::add, JsonArray::addAll);
     }
 
@@ -55,21 +61,13 @@ public final class JsonLiteralBuilder extends AbstractJsonLiteralBuilder<JsonObj
         } else if (value instanceof Number) {
             return new JsonPrimitive((Number) value);
         } else if (value instanceof Iterable) {
-            return serializeIterable((Iterable<?>) value);
+            return arrayFromStream(toStream((Iterable<?>) value));
         } else if (value instanceof Object[]) {
-            return serializeIterable(asList((Object[]) value));
+            return arrayFromStream(stream((Object[]) value));
         } else if (value == null) {
             return JsonNull.INSTANCE;
         } else {
             throw new IllegalArgumentException("Can not serialize type " + value.getClass());
         }
-    }
-
-    private JsonElement serializeIterable(Iterable<?> value) {
-        JsonArray arrayNode = new JsonArray();
-        for (Object a : value) {
-            arrayNode.add(convertValueToNode(a));
-        }
-        return arrayNode;
     }
 }
