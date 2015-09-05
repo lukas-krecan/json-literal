@@ -64,15 +64,21 @@ public class JsonLiteral {
         } else if (value instanceof Float) {
             return FloatNode.valueOf((Float) value);
         } else if (value instanceof Iterable) {
-            ArrayNode arrayNode = new ArrayNode(nodeFactory);
-            for (Object a : (Iterable<?>) value) {
-                arrayNode.add(convertValueToNode(a));
-            }
-            return arrayNode;
+            return serializeIterable((Iterable<?>) value);
+        } else if (value instanceof Object[]) {
+            return serializeIterable(asList((Object[])value));
         } else if (value == null) {
            return NullNode.getInstance();
         } else {
             throw new IllegalArgumentException("Can not serialize type " + value.getClass());
         }
+    }
+
+    private static JsonNode serializeIterable(Iterable<?> value) {
+        ArrayNode arrayNode = new ArrayNode(nodeFactory);
+        for (Object a : value) {
+            arrayNode.add(convertValueToNode(a));
+        }
+        return arrayNode;
     }
 }

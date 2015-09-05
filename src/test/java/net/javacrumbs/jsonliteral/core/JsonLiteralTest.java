@@ -19,11 +19,13 @@ public class JsonLiteralTest {
                         string -> "value",
                         integer -> 1,
                         nothing -> null,
-                        dbl -> 1.1f,
-                        arr -> asList(1, "a", 3)
+                        dbl -> 1.1,
+                        flt -> 1.0,
+                        arr -> asList(1, "a", 3),
+                        arr2 -> new String[]{"a","b", "c"}
                 )
         ).isEqualTo("{\"one\": true, \"two\": {\"three\":false}, \"string\":\"value\", \"integer\":1, \"nothing\": null, \"dbl\": 1.1, " +
-                "\"arr\":[1, \"a\", 3]}");
+                "\"flt\":1.0, \"arr\":[1, \"a\", 3], \"arr2\": [\"a\", \"b\", \"c\"]}");
     }
 
 }
