@@ -1,5 +1,6 @@
 # json-literal
 A library for writing JSON in literal-like style based on Benji Weber's [Lambda Type References](https://github.com/benjiman/lambda-type-references)
+You need to compile with javac `-parameters` for parameter reflection to work and Java 8u60 or newer.
 
 # Usage
 
