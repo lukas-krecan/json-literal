@@ -9,6 +9,9 @@ import java.math.BigInteger;
 
 import static java.util.Arrays.asList;
 
+/**
+ * Abstract parent for tests.
+ */
 public abstract class AbstractJsonLiteralTest {
     @Test
     public void shouldCreateNode() {

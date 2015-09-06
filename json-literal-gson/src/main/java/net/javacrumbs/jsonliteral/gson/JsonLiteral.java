@@ -27,23 +27,23 @@ public class JsonLiteral {
 
     /**
      * Creates JsonObject. Use like this
-     * <code>
-     *     <pre>
+     * <pre>
+     *   <code>
      *     json = obj(
-     *           one -> true,
-     *           two -> obj(
-     *                   three -> false
+     *           one -&gt; true,
+     *           two -&gt; obj(
+     *                   three -&gt; false
      *            ),
-     *           string -> "value",
-     *           integer -> 1,
-     *           $null -> null,
-     *           dbl -> 1.1,
-     *           flt -> 1.0,
-     *           arr -> asList(1, "a", 3),
-     *           arr2 -> new String[]{"a", "b", "c"}
+     *           string -&gt; "value",
+     *           integer -&gt; 1,
+     *           $null -&gt; null,
+     *           dbl -&gt; 1.1,
+     *           flt -&gt; 1.0,
+     *           arr -&gt; asList(1, "a", 3),
+     *           arr2 -&gt; new String[]{"a", "b", "c"}
      *    );
-     *   </pre>
-     * </code>
+     *  </code>
+     * </pre>
      * @param keyValuePairs
      * @return
      */
