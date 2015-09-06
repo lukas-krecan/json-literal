@@ -15,13 +15,15 @@
  */
 package net.javacrumbs.jsonliteral.gson;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import net.javacrumbs.jsonliteral.core.KeyValue;
 import net.javacrumbs.jsonliteral.core.NameTranslator;
 
 public class JsonLiteral {
-    private static final JsonLiteralBuilder defaultBuilder = new JsonLiteralBuilder(NameTranslator.DEFAULT_TRANSLATOR);
+    private static final Gson defaultGson = new Gson();
+    private static final JsonLiteralBuilder defaultBuilder = new JsonLiteralBuilder(NameTranslator.DEFAULT_TRANSLATOR, defaultGson);
 
     /**
      * Creates JsonObject. Use like this

@@ -15,9 +15,6 @@
  */
 package net.javacrumbs.jsonliteral.core;
 
-import java.util.stream.Stream;
-import java.util.stream.StreamSupport;
-
 import static java.util.Arrays.asList;
 
 public abstract class AbstractJsonLiteralBuilder<T> {
@@ -36,10 +33,6 @@ public abstract class AbstractJsonLiteralBuilder<T> {
                     put(node, translateName(name), kvp.apply(name));
                 });
         return node;
-    }
-
-    protected final Stream<?> toStream(Iterable<?> value) {
-        return StreamSupport.stream(value.spliterator(), false);
     }
 
     private String translateName(String name) {

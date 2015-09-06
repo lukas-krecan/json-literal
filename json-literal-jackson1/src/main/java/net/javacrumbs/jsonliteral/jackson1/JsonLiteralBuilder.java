@@ -18,30 +18,20 @@ package net.javacrumbs.jsonliteral.jackson1;
 import net.javacrumbs.jsonliteral.core.AbstractJsonLiteralBuilder;
 import net.javacrumbs.jsonliteral.core.NameTranslator;
 import org.codehaus.jackson.JsonNode;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.node.ArrayNode;
-import org.codehaus.jackson.node.BigIntegerNode;
-import org.codehaus.jackson.node.BooleanNode;
-import org.codehaus.jackson.node.DecimalNode;
-import org.codehaus.jackson.node.DoubleNode;
-import org.codehaus.jackson.node.IntNode;
-import org.codehaus.jackson.node.JsonNodeFactory;
-import org.codehaus.jackson.node.LongNode;
-import org.codehaus.jackson.node.NullNode;
 import org.codehaus.jackson.node.ObjectNode;
-import org.codehaus.jackson.node.TextNode;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.stream.Stream;
 
 import static java.util.Arrays.stream;
 
 public final class JsonLiteralBuilder extends AbstractJsonLiteralBuilder<ObjectNode> {
-    private final JsonNodeFactory nodeFactory;
+    private final ObjectMapper objectMapper;
 
-    public JsonLiteralBuilder(NameTranslator nameTranslator, JsonNodeFactory nodeFactory) {
+    public JsonLiteralBuilder(NameTranslator nameTranslator, ObjectMapper objectMapper) {
         super(nameTranslator);
-        this.nodeFactory = nodeFactory;
+        this.objectMapper = objectMapper;
     }
 
     @Override
@@ -51,7 +41,7 @@ public final class JsonLiteralBuilder extends AbstractJsonLiteralBuilder<ObjectN
 
     @Override
     protected final ObjectNode createNode() {
-        return new ObjectNode(nodeFactory);
+        return new ObjectNode(objectMapper.getNodeFactory());
     }
 
     public final ArrayNode array(Object... values) {
@@ -61,36 +51,10 @@ public final class JsonLiteralBuilder extends AbstractJsonLiteralBuilder<ObjectN
     private ArrayNode arrayFromStream(Stream<?> values) {
         return values
                 .map(this::convertValueToNode)
-                .collect(() -> new ArrayNode(nodeFactory), ArrayNode::add, ArrayNode::addAll);
+                .collect(() -> new ArrayNode(objectMapper.getNodeFactory()), ArrayNode::add, ArrayNode::addAll);
     }
 
     private JsonNode convertValueToNode(Object value) {
-        if (value instanceof Boolean) {
-            return BooleanNode.valueOf((Boolean) value);
-        } else if (value instanceof JsonNode) {
-            return (JsonNode) value;
-        } else if (value instanceof String) {
-            return TextNode.valueOf((String) value);
-        } else if (value instanceof Integer) {
-            return IntNode.valueOf((Integer) value);
-        } else if (value instanceof Long) {
-            return LongNode.valueOf((Long) value);
-        } else if (value instanceof Double) {
-            return DoubleNode.valueOf((Double) value);
-        } else if (value instanceof Float) {
-            return DoubleNode.valueOf((Float) value);
-        } else if (value instanceof BigDecimal) {
-            return DecimalNode.valueOf((BigDecimal) value);
-        } else if (value instanceof BigInteger) {
-            return BigIntegerNode.valueOf((BigInteger) value);
-        } else if (value instanceof Iterable) {
-            return arrayFromStream(toStream((Iterable<?>) value));
-        } else if (value instanceof Object[]) {
-            return arrayFromStream(stream((Object[]) value));
-        } else if (value == null) {
-            return NullNode.getInstance();
-        } else {
-            throw new IllegalArgumentException("Can not serialize type " + value.getClass());
-        }
+        return objectMapper.convertValue(value, JsonNode.class);
     }
 }

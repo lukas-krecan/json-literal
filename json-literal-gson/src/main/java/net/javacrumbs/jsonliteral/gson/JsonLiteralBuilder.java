@@ -15,11 +15,10 @@
  */
 package net.javacrumbs.jsonliteral.gson;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonNull;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonPrimitive;
 import net.javacrumbs.jsonliteral.core.AbstractJsonLiteralBuilder;
 import net.javacrumbs.jsonliteral.core.NameTranslator;
 
@@ -28,8 +27,12 @@ import java.util.stream.Stream;
 import static java.util.Arrays.stream;
 
 public final class JsonLiteralBuilder extends AbstractJsonLiteralBuilder<JsonObject> {
-    public JsonLiteralBuilder(NameTranslator nameTranslator) {
+
+    private final Gson gson;
+
+    public JsonLiteralBuilder(NameTranslator nameTranslator, Gson gson) {
         super(nameTranslator);
+        this.gson = gson;
     }
 
     @Override
@@ -52,22 +55,6 @@ public final class JsonLiteralBuilder extends AbstractJsonLiteralBuilder<JsonObj
     }
 
     private JsonElement convertValueToNode(Object value) {
-        if (value instanceof Boolean) {
-            return new JsonPrimitive((Boolean) value);
-        } else if (value instanceof JsonElement) {
-            return (JsonElement) value;
-        } else if (value instanceof String) {
-            return new JsonPrimitive((String) value);
-        } else if (value instanceof Number) {
-            return new JsonPrimitive((Number) value);
-        } else if (value instanceof Iterable) {
-            return arrayFromStream(toStream((Iterable<?>) value));
-        } else if (value instanceof Object[]) {
-            return arrayFromStream(stream((Object[]) value));
-        } else if (value == null) {
-            return JsonNull.INSTANCE;
-        } else {
-            throw new IllegalArgumentException("Can not serialize type " + value.getClass());
-        }
+        return gson.toJsonTree(value);
     }
 }

@@ -15,14 +15,15 @@
  */
 package net.javacrumbs.jsonliteral.jackson2;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import net.javacrumbs.jsonliteral.core.KeyValue;
 import net.javacrumbs.jsonliteral.core.NameTranslator;
 
 public class JsonLiteral {
-    private static final JsonLiteralBuilder defaultBuilder = new JsonLiteralBuilder(NameTranslator.DEFAULT_TRANSLATOR, JsonNodeFactory.instance);
+    private static final ObjectMapper defaultObjectMapper = new ObjectMapper();
+    private static final JsonLiteralBuilder defaultBuilder = new JsonLiteralBuilder(NameTranslator.DEFAULT_TRANSLATOR, defaultObjectMapper);
 
     /**
      * Creates JsonObject. Use like this
