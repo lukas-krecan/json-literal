@@ -34,12 +34,31 @@ public class Example {
                         string -> "value",
                         integer -> 1,
                         $null -> null,
-                        dbl -> 1.1,
-                        flt -> 1.0,
-                        arr -> asList(1, "a", 3),
-                        arr2 -> array("a", "b", "c") // or you can use array factory method
+                        $double -> 1.1,
+                        $float -> 1.0,
+                        array -> asList(1, "a", 3),
+                        array2 -> array("a", "b", "c") // you can use array method
                 );
 
         System.out.println(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(node));
+
+        System.out.println("------");
+
+        String value = "valueFromVariable";
+
+        JsonNode node2 =
+                obj(
+                        root -> obj(
+                                value1 -> "value",
+                                value2 -> obj(
+                                        value3 -> 1,
+                                        value4 -> obj(
+                                                test -> value
+                                        )
+                                )
+                        )
+                );
+
+        System.out.println(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(node2));
     }
 }

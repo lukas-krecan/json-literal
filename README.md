@@ -14,24 +14,24 @@ Import Maven project depending on your implementation (Jackson 2 in this example
 
 And enjoy
 
-    import static net.javacrumbs.jsonliteral.jackson2.JsonLiteral.obj;
+    import static net.javacrumbs.jsonliteral.jackson2.JsonLiteral.*;
 
     ...
 
     JsonNode node =
-                    obj(
-                            one -> true,
-                            two -> obj(
-                                    three -> false
-                            ),
-                            string -> "value",
-                            integer -> 1,
-                            $null -> null,
-                            dbl -> 1.1,
-                            flt -> 1.0,
-                            arr -> asList(1, "a", 3),
-                            arr2 -> array("a", "b", "c") // or you can use array factory method
-                    );
+            obj(
+                    one -> true,
+                    two -> obj(
+                            three -> false
+                    ),
+                    string -> "value",
+                    integer -> 1,
+                    $null -> null,
+                    $double -> 1.1,
+                    $float -> 1.0,
+                    array -> asList(1, "a", 3),
+                    array2 -> array("a", "b", "c") // you can use array method
+            );
 
 Results in
 
@@ -43,10 +43,10 @@ Results in
       "string" : "value",
       "integer" : 1,
       "null" : null,
-      "dbl" : 1.1,
-      "flt" : 1.0,
-      "arr" : [ 1, "a", 3 ],
-      "arr2" : [ "a", "b", "c" ]
+      "double" : 1.1,
+      "float" : 1.0,
+      "array" : [ 1, "a", 3 ],
+      "array2" : [ "a", "b", "c" ]
     }
 
 Please note that you can use only valid Java identifier for key value. So you can not use `null`, `for`
