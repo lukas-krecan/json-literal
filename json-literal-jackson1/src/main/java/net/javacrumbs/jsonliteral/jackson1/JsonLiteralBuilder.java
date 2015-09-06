@@ -22,10 +22,6 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.node.ArrayNode;
 import org.codehaus.jackson.node.ObjectNode;
 
-import java.util.stream.Stream;
-
-import static java.util.Arrays.stream;
-
 /**
  * Builds JSON literal using Jackson 1. You can use this class for customization.
  */
@@ -48,13 +44,7 @@ public final class JsonLiteralBuilder extends AbstractJsonLiteralBuilder<ObjectN
     }
 
     public final ArrayNode array(Object... values) {
-        return arrayFromStream(stream(values));
-    }
-
-    private ArrayNode arrayFromStream(Stream<?> values) {
-        return values
-            .map(this::convertValueToNode)
-            .collect(() -> new ArrayNode(objectMapper.getNodeFactory()), ArrayNode::add, ArrayNode::addAll);
+        return toArray(this::convertValueToNode, () -> new ArrayNode(objectMapper.getNodeFactory()), ArrayNode::add, ArrayNode::addAll, values);
     }
 
     private JsonNode convertValueToNode(Object value) {

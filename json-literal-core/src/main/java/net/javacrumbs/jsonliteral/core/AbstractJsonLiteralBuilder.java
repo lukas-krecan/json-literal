@@ -15,7 +15,12 @@
  */
 package net.javacrumbs.jsonliteral.core;
 
+import java.util.function.BiConsumer;
+import java.util.function.Function;
+import java.util.function.Supplier;
+
 import static java.util.Arrays.asList;
+import static java.util.Arrays.stream;
 
 public abstract class AbstractJsonLiteralBuilder<T> {
     private final NameTranslator nameTranslator;
@@ -33,6 +38,13 @@ public abstract class AbstractJsonLiteralBuilder<T> {
                 put(node, translateName(name), kvp.apply(name));
             });
         return node;
+    }
+
+    protected final <R, S> S toArray(Function<Object, R> conversion, Supplier<S> arraySupplier, BiConsumer<S, R> accumulator,
+                                BiConsumer<S, S> combiner, Object... values) {
+        return stream(values)
+            .map(conversion)
+            .collect(arraySupplier, accumulator, combiner);
     }
 
     private String translateName(String name) {

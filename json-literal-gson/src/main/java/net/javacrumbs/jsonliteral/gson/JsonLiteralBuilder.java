@@ -22,10 +22,6 @@ import com.google.gson.JsonObject;
 import net.javacrumbs.jsonliteral.core.AbstractJsonLiteralBuilder;
 import net.javacrumbs.jsonliteral.core.NameTranslator;
 
-import java.util.stream.Stream;
-
-import static java.util.Arrays.stream;
-
 /**
  * Builds JSON literal using Gson. You can use this class for customization.
  */
@@ -48,13 +44,8 @@ public final class JsonLiteralBuilder extends AbstractJsonLiteralBuilder<JsonObj
         return new JsonObject();
     }
 
-    public final JsonArray array(Object[] values) {
-        return arrayFromStream(stream(values));
-    }
-
-    private JsonArray arrayFromStream(Stream<?> values) {
-        return values.map(this::convertValueToNode)
-            .collect(JsonArray::new, JsonArray::add, JsonArray::addAll);
+    public final JsonArray array(Object... values) {
+        return toArray(this::convertValueToNode, JsonArray::new, JsonArray::add, JsonArray::addAll, values);
     }
 
     private JsonElement convertValueToNode(Object value) {

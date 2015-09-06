@@ -22,10 +22,6 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import net.javacrumbs.jsonliteral.core.AbstractJsonLiteralBuilder;
 import net.javacrumbs.jsonliteral.core.NameTranslator;
 
-import java.util.stream.Stream;
-
-import static java.util.Arrays.stream;
-
 
 /**
  * Builds JSON literal using Jackson 2. You can use this class for customization.
@@ -49,13 +45,7 @@ public final class JsonLiteralBuilder extends AbstractJsonLiteralBuilder<ObjectN
     }
 
     public final ArrayNode array(Object... values) {
-        return arrayFromStream(stream(values));
-    }
-
-    private ArrayNode arrayFromStream(Stream<?> values) {
-        return values
-            .map(this::convertValueToNode)
-            .collect(() -> new ArrayNode(objectMapper.getNodeFactory()), ArrayNode::add, ArrayNode::addAll);
+        return toArray(this::convertValueToNode, () -> new ArrayNode(objectMapper.getNodeFactory()), ArrayNode::add, ArrayNode::addAll, values);
     }
 
     private JsonNode convertValueToNode(Object value) {
