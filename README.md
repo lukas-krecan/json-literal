@@ -19,19 +19,19 @@ And enjoy
     ...
 
     JsonNode node =
-            obj(
-                    one -> true,
-                    two -> obj(
-                            three -> false
-                    ),
-                    string -> "value",
-                    integer -> 1,
-                    $null -> null,
-                    $double -> 1.1,
-                    $float -> 1.0,
-                    array -> asList(1, "a", 3),
-                    array2 -> array("a", "b", "c") // you can use array method
-            );
+        obj(
+            one -> true,
+            two -> obj(
+                three -> false
+            ),
+            string -> "value",
+            integer -> 1,
+            $null -> null,
+            $double -> 1.1,
+            $float -> 1.0f,
+            array -> asList(1, "a", 3),
+            array2 -> array("a", "b", "c") // you can use array method
+        );
 
 Results in
 

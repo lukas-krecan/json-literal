@@ -35,7 +35,7 @@ public class Example {
                 integer -> 1,
                 $null -> null,
                 $double -> 1.1,
-                $float -> 1.0,
+                $float -> 1.0f,
                 array -> asList(1, "a", 3),
                 array2 -> array("a", "b", "c") // you can use array method
             );
