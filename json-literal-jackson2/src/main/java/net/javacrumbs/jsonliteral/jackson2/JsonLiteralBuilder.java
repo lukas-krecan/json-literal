@@ -26,6 +26,10 @@ import java.util.stream.Stream;
 
 import static java.util.Arrays.stream;
 
+
+/**
+ * Builds JSON literal using Jackson 2. You can use this class for customization.
+ */
 public final class JsonLiteralBuilder extends AbstractJsonLiteralBuilder<ObjectNode> {
     private final ObjectMapper objectMapper;
 

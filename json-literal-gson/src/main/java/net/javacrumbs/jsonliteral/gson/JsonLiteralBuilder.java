@@ -26,6 +26,9 @@ import java.util.stream.Stream;
 
 import static java.util.Arrays.stream;
 
+/**
+ * Builds JSON literal using Gson. You can use this class for customization.
+ */
 public final class JsonLiteralBuilder extends AbstractJsonLiteralBuilder<JsonObject> {
 
     private final Gson gson;
