@@ -14,5 +14,6 @@ public interface NameTranslator {
             return originalName;
         }
     };
+
     String translate(String originalName);
 }

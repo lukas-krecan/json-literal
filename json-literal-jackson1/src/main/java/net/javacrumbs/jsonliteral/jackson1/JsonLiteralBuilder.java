@@ -53,8 +53,8 @@ public final class JsonLiteralBuilder extends AbstractJsonLiteralBuilder<ObjectN
 
     private ArrayNode arrayFromStream(Stream<?> values) {
         return values
-                .map(this::convertValueToNode)
-                .collect(() -> new ArrayNode(objectMapper.getNodeFactory()), ArrayNode::add, ArrayNode::addAll);
+            .map(this::convertValueToNode)
+            .collect(() -> new ArrayNode(objectMapper.getNodeFactory()), ArrayNode::add, ArrayNode::addAll);
     }
 
     private JsonNode convertValueToNode(Object value) {

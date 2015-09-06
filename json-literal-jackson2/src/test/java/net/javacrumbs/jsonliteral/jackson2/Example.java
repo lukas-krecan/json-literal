@@ -26,19 +26,19 @@ import static net.javacrumbs.jsonliteral.jackson2.JsonLiteral.obj;
 public class Example {
     public static void main(String[] args) throws JsonProcessingException {
         JsonNode node =
-                obj(
-                        one -> true,
-                        two -> obj(
-                                three -> false
-                        ),
-                        string -> "value",
-                        integer -> 1,
-                        $null -> null,
-                        $double -> 1.1,
-                        $float -> 1.0,
-                        array -> asList(1, "a", 3),
-                        array2 -> array("a", "b", "c") // you can use array method
-                );
+            obj(
+                one -> true,
+                two -> obj(
+                    three -> false
+                ),
+                string -> "value",
+                integer -> 1,
+                $null -> null,
+                $double -> 1.1,
+                $float -> 1.0,
+                array -> asList(1, "a", 3),
+                array2 -> array("a", "b", "c") // you can use array method
+            );
 
         System.out.println(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(node));
 
@@ -47,17 +47,17 @@ public class Example {
         String value = "valueFromVariable";
 
         JsonNode node2 =
-                obj(
-                        root -> obj(
-                                value1 -> "value",
-                                value2 -> obj(
-                                        value3 -> 1,
-                                        value4 -> obj(
-                                                test -> value
-                                        )
-                                )
+            obj(
+                root -> obj(
+                    value1 -> "value",
+                    value2 -> obj(
+                        value3 -> 1,
+                        value4 -> obj(
+                            test -> value
                         )
-                );
+                    )
+                )
+            );
 
         System.out.println(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(node2));
     }

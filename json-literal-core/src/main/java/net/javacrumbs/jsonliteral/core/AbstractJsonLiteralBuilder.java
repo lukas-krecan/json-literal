@@ -27,11 +27,11 @@ public abstract class AbstractJsonLiteralBuilder<T> {
     public final T obj(KeyValue... keyValuePairs) {
         T node = createNode();
         asList(keyValuePairs)
-                .stream()
-                .forEach(kvp -> {
-                    String name = NameExtractor.extractName(kvp);
-                    put(node, translateName(name), kvp.apply(name));
-                });
+            .stream()
+            .forEach(kvp -> {
+                String name = NameExtractor.extractName(kvp);
+                put(node, translateName(name), kvp.apply(name));
+            });
         return node;
     }
 

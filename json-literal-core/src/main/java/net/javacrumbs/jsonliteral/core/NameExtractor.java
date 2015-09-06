@@ -59,10 +59,10 @@ class NameExtractor {
         SerializedLambda lambda = serialized(keyValue);
         Class<?> containingClass = getContainingClass(lambda);
         return asList(containingClass.getDeclaredMethods())
-                .stream()
-                .filter(method -> Objects.equals(method.getName(), lambda.getImplMethodName()))
-                .findFirst()
-                .orElseThrow(UnableToGuessMethodException::new);
+            .stream()
+            .filter(method -> Objects.equals(method.getName(), lambda.getImplMethodName()))
+            .findFirst()
+            .orElseThrow(UnableToGuessMethodException::new);
     }
 
     static class UnableToGuessMethodException extends IllegalStateException {
