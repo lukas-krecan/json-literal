@@ -7,7 +7,7 @@
     <parent>
         <groupId>net.javacrumbs</groupId>
         <artifactId>json-literal</artifactId>
-        <version>0.1.0</version>
+        <version>0.1.1-SNAPSHOT</version>
     </parent>
 
     <dependencies>

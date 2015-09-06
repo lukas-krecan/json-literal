@@ -10,7 +10,7 @@
 
     <groupId>net.javacrumbs</groupId>
     <artifactId>json-literal</artifactId>
-    <version>0.1.0</version>
+    <version>0.1.1-SNAPSHOT</version>
     <packaging>pom</packaging>
     <modules>
         <module>json-literal-core</module>
