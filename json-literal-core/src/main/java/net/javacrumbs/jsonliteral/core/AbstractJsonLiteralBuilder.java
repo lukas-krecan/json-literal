@@ -15,6 +15,8 @@
  */
 package net.javacrumbs.jsonliteral.core;
 
+import net.javacrumbs.lambdaextractor.ParameterNameExtractor;
+
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -34,7 +36,7 @@ public abstract class AbstractJsonLiteralBuilder<T> {
         asList(keyValuePairs)
             .stream()
             .forEach(kvp -> {
-                String name = NameExtractor.extractName(kvp);
+                String name = ParameterNameExtractor.extractParameterNames(kvp).get(0);
                 put(node, translateName(name), kvp.apply(name));
             });
         return node;

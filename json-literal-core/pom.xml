@@ -9,4 +9,12 @@
         <artifactId>json-literal</artifactId>
         <version>0.1.1-SNAPSHOT</version>
     </parent>
+
+    <dependencies>
+        <dependency>
+            <groupId>net.javacrumbs</groupId>
+            <artifactId>lambda-param-name-extractor</artifactId>
+            <version>0.1.0</version>
+        </dependency>
+    </dependencies>
 </project>
