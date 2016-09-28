@@ -17,11 +17,11 @@ package net.javacrumbs.jsonliteral.core;
 
 import net.javacrumbs.lambdaextractor.ParameterNameExtractor;
 
+import java.util.Arrays;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-import static java.util.Arrays.asList;
 import static java.util.Arrays.stream;
 
 public abstract class AbstractJsonLiteralBuilder<T> {
@@ -33,10 +33,9 @@ public abstract class AbstractJsonLiteralBuilder<T> {
 
     public final T obj(KeyValue... keyValuePairs) {
         T node = createNode();
-        asList(keyValuePairs)
-            .stream()
+        Arrays.stream(keyValuePairs)
             .forEach(kvp -> {
-                String name = ParameterNameExtractor.extractParameterNames(kvp).get(0);
+                String name = ParameterNameExtractor.extractFirstParameterName(kvp);
                 put(node, translateName(name), kvp.apply(name));
             });
         return node;
