@@ -35,7 +35,7 @@ public abstract class AbstractJsonLiteralBuilder<T> {
         T node = createNode();
         Arrays.stream(keyValuePairs)
             .forEach(kvp -> {
-                String name = ParameterNameExtractor.extractFirstParameterName(kvp);
+                String name = ParameterNameExtractor.extractLastParameterName(kvp);
                 put(node, translateName(name), kvp.apply(name));
             });
         return node;

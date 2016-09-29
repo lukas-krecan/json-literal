@@ -15,6 +15,8 @@ import static java.util.Arrays.asList;
 public abstract class AbstractJsonLiteralTest {
     @Test
     public void shouldCreateNode() {
+        int externalInt = 1;
+
         JsonFluentAssert.assertThatJson(
             obj(
                 one -> true,
@@ -22,7 +24,7 @@ public abstract class AbstractJsonLiteralTest {
                     three -> false
                 ),
                 string -> "value",
-                integer -> 1,
+                integer -> externalInt,
                 $null -> null,
                 dbl -> 1.1,
                 flt -> 1.0f,
