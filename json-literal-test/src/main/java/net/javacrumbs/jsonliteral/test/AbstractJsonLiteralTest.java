@@ -8,6 +8,8 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 
 import static java.util.Arrays.asList;
+import static net.javacrumbs.jsonunit.fluent.JsonFluentAssert.assertThatJson;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Abstract parent for tests.
@@ -17,7 +19,7 @@ public abstract class AbstractJsonLiteralTest {
     public void shouldCreateNode() {
         int externalInt = 1;
 
-        JsonFluentAssert.assertThatJson(
+        assertThatJson(
             obj(
                 one -> true,
                 two -> obj(
@@ -62,7 +64,7 @@ public abstract class AbstractJsonLiteralTest {
 
     @Test
     public void shouldCreateArrayOfNodesInANode() {
-        JsonFluentAssert.assertThatJson(
+        assertThatJson(
             obj(
                 array -> asList(
                     obj(a -> 1),
@@ -73,8 +75,17 @@ public abstract class AbstractJsonLiteralTest {
     }
 
     @Test
+    public void shouldSerializeNullNode() {
+        assertThat(
+            obj(
+                data -> null
+            ).toString()
+        ).isEqualTo("{\"data\":null}");
+    }
+
+    @Test
     public void shouldCreateArrayOfNodes() {
-        JsonFluentAssert.assertThatJson(array(
+        assertThatJson(array(
                 obj(a -> 1),
                 obj(a -> 2)
             )
