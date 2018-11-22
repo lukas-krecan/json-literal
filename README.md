@@ -2,6 +2,8 @@
 A library for writing JSON in literal-like style based on Benji Weber's [Lambda Type References](https://github.com/benjiman/lambda-type-references).
 You need to compile with Java 8u60 or newer and javac `-parameters` for parameter reflection to work.
 
+**This project is abusing lambdas in a way that probably is not a good idea, use at your own risk.**
+
 # Usage
 
 Import Maven project depending on your implementation (Jackson 2 in this example, but modules for Gson and Jackson 1 are provided too)
