@@ -22,8 +22,22 @@ import net.javacrumbs.jsonliteral.core.KeyValue;
 import net.javacrumbs.jsonliteral.core.NameTranslator;
 
 public class JsonLiteral {
-    private static final Gson defaultGson = new Gson();
-    private static final JsonLiteralBuilder defaultBuilder = new JsonLiteralBuilder(NameTranslator.DEFAULT_TRANSLATOR, defaultGson);
+
+    private static Gson defaultGson = new Gson();
+    private static JsonLiteralBuilder defaultBuilder = new JsonLiteralBuilder(NameTranslator.DEFAULT_TRANSLATOR, defaultGson);
+
+    /**
+     * Sets the Gson instance used by the builder to construct JsonArray/Objects from literals.
+     * Useful when you want to modify the configuration options of the Gson instance.
+     * <code>
+     *     JsonLiteral.setGson(new GsonBuilder().serializeNulls().create());
+     * </code>
+     * @param gson
+     */
+    public void setGson(Gson gson) {
+        JsonLiteral.defaultGson = gson;
+        JsonLiteral.defaultBuilder = new JsonLiteralBuilder(NameTranslator.DEFAULT_TRANSLATOR, gson);
+    }
 
     /**
      * Creates JsonObject. Use like this
