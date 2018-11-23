@@ -23,8 +23,8 @@ import net.javacrumbs.jsonliteral.core.NameTranslator;
 
 public class JsonLiteral {
 
-    private static final Gson defaultGson = new Gson();
-    private static final JsonLiteralBuilder defaultBuilder = new JsonLiteralBuilder(NameTranslator.DEFAULT_TRANSLATOR, defaultGson);
+    private static Gson defaultGson = new Gson();
+    private static JsonLiteralBuilder defaultBuilder = new JsonLiteralBuilder(NameTranslator.DEFAULT_TRANSLATOR, defaultGson);
 
     /**
      * Sets the Gson instance used by the builder to construct JsonArray/Objects from literals.
